@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Jquery form validation</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+	    <h1 class="text-center text-primary text-uppercase mt-5">Jquery Form Validation</h1>
+	</div>
+	<div class="col-lg-8 m-auto d-block">
+	    <form>
+		    
+			<div class="form-group">
+			   <label for="user">Username: </label>
+			   <input class="form-control" type="text" name="username" id="usernames" autocomplete="off">
+			   <h5 id="usercheck"></h5>
+			</div>
+			<div class="form-group">
+			   <label for="password">Password: </label>
+			   <input class="form-control" type="text" name="pass" id="password" autocomplete="off">
+			   <h5 id="passcheck"></h5>
+			</div>
+			<div class="form-group">
+			   <label for="conpassword">Confirm Password: </label>
+			   <input class="form-control" type="text" name="conpassword" id="conpassword" autocomplete="off">
+			   <h5 id="conpasscheck"></h5>
+			</div>
+			<input class="btn btn-primary" type="submit" name="" id="submitbtn" value="Submit">
+		</form>
+	</div>
+<script type="text/javascript">
+   $(document).ready(function(){
+      
+	  $('#usercheck').hide();
+	  $('#passcheck').hide();
+	  $('#conpasscheck').hide();
+	  
+	  var user_err = true;
+	  var pass_err = true;
+	  var conpass_err = true;
+	  
+	  $('#usernames').keyup(function(){
+	     username_check();
+	  });
+	  
+	  function username_check(){
+	    var user_val = $('#usernames').val();
+		if(user_val.length == ''){
+		   $('#usercheck').show();
+		   $('#usercheck').html("Please fill the username");
+		   $('#usercheck').focus();
+		   $('#usercheck').css("color","red");
+		   user_err = false;
+		   return false;
+		}
+		else{
+		  $('#usercheck').hide();
+		}
+
+        if((user_val.length < 3) || (user_val.length > 10)){
+		   $('#usercheck').show();
+		   $('#usercheck').html("Username length must be between 3 to 10");
+		   $('#usercheck').focus();
+		   $('#usercheck').css("color","red");
+		   user_err = false;
+		   return false;
+		}
+		else{
+		  $('#usercheck').hide();
+		}
+	  }
+
+
+      $('#password').keyup(function(){
+
+         password_check();
+      });
+       
+       function password_check(){
+
+       	var passwrdstr = $('#password').val();
+
+       	if(passwrdstr.length == ''){
+          $('#passcheck').show();
+		   $('#passcheck').html("Please fill the password");
+		   $('#passcheck').focus();
+		   $('#passcheck').css("color","red");
+		   pass_err = false;
+		   return false;
+		}
+		else{
+		  $('#passcheck').hide();
+       	}
+
+        if((passwrdstr.length < 5) || (passwrdstr.length > 20)){
+		   $('#passcheck').show();
+		   $('#passcheck').html("Password length must be between 5 to 20");
+		   $('#passcheck').focus();
+		   $('#passcheck').css("color","red");
+		   pass_err = false;
+		   return false;
+		}
+		else{
+		  $('#passcheck').hide();
+		}
+      }
+
+      $('#conpassword').keyup(function(){
+       con_passwrd();
+      });
+
+      function con_passwrd(){
+
+       var conpass = $('#conpassword').val();
+       var passwrdstr = $('#password').val();
+
+       if(passwrdstr != conpass){
+         
+          $('#conpasscheck').show();
+		   $('#conpasscheck').html("Password are not matching");
+		   $('#conpasscheck').focus();
+		   $('#conpasscheck').css("color","red");
+		   conpass_err = false;
+		   return false;
+		}
+		else{
+		  $('#conpasscheck').html("Password are  match");
+		  $('#conpasscheck').css("color","green");
+       }
+     }
+	  
+      $('#submitbtn').click(function(){
+         
+         var user_err = true;
+	     var pass_err = true;
+	     var conpass_err = true;
+	      
+	      username_check();
+          password_check();
+          con_passwrd();
+
+          if((user_err == true) && (pass_err == true) && (con_passwrd == true)){
+
+          	return true;
+          }
+          else{
+          	return false;
+          }
+      });
+
+   });
+</script>
+</body>
+</html>
